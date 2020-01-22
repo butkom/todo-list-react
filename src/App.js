@@ -17,13 +17,16 @@ class App extends React.Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
+        if (!this.state.value) {
+            alert('empty value');
+            return;
+        }
         let list = this.state.list;
         list.push(this.state.value);
 
         this.setState({list});
-        this.setState({value: ''});
-
-        event.preventDefault();
+        this.setState({value: ''})
     }
 
     handleChange(event) {
