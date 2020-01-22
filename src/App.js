@@ -1,17 +1,32 @@
 import React from 'react';
 import './App.css';
-import Tr from './Tr.js';
 
 const initialTodo = [
     'to implement todo list'
 ];
 
-class App extends React.Component
-{
+class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {initialTodo}
+        this.state = {list: initialTodo, value: ''};
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleSubmit(event) {
+        let list = this.state.list;
+        list.push(this.state.value);
+
+        this.setState({list});
+        this.setState({value: ''});
+
+        event.preventDefault();
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
     }
 
     render() {
@@ -26,17 +41,29 @@ class App extends React.Component
                 </tr>
                 <tr>
                     <td>#</td>
-                    <td><input type="text" name="content" /></td>
+                    <td>
+                        <form onSubmit={this.handleSubmit}>
+                            <input type="text" onChange={this.handleChange} value={this.state.value} />
+                            <button>add</button>
+                        </form>
+                    </td>
                     <td>#</td>
                     <td>Status</td>
                 </tr>
                 </thead>
                 <tbody>
-                    {
-                        this.state.initialTodo.map((item) =>
-                            <Tr key={item} content={item} />
-                        )
-                    }
+                {
+                    this.state.list.map((item) =>
+                        <tr key={item}>
+                            <td>#</td>
+                            <td>{item}</td>
+                            <td>
+                                <button>x</button>
+                            </td>
+                            <td>#</td>
+                        </tr>
+                    )
+                }
                 </tbody>
             </table>
         );
