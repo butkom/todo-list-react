@@ -65,11 +65,7 @@ class App extends React.Component {
                             <td>#</td>
                             <td>{item}</td>
                             <td>
-                                <button onClick={(e)=>{
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    this.removeTodo(index);
-                                }}>x</button>
+                                <button onClick={(e)=>{this.removeTodo(index);}}>x</button>
                             </td>
                             <td>#</td>
                         </tr>
