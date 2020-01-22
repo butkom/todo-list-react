@@ -47,7 +47,6 @@ class App extends React.Component {
                     <th>Action</th>
                     <th>Content</th>
                     <th>Remove</th>
-                    <th>Status</th>
                 </tr>
                 <tr>
                     <td>#</td>
@@ -58,19 +57,17 @@ class App extends React.Component {
                         </form>
                     </td>
                     <td>#</td>
-                    <td>Status</td>
                 </tr>
                 </thead>
                 <tbody>
                 {
                     this.state.list.map((item, index) =>
                         <tr key={index}>
-                            <td>#</td>
+                            <td><input type="checkbox" /> </td>
                             <td>{item}</td>
                             <td>
-                                <button onClick={(e)=>{this.removeTodo(index);}}>x</button>
+                                <button onClick={()=>{this.removeTodo(index);}}>x</button>
                             </td>
-                            <td>#</td>
                         </tr>
                     )
                 }
