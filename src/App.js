@@ -1,31 +1,45 @@
 import React from 'react';
 import './App.css';
 
-class Ul extends React.Component{
-    render() {
-        return (
-            <ul>
-                {this.props.liElements}
-            </ul>
-        );
-    }
-}
+const initialTodo = {
+    content: 'to implement todo list',
+    status: 1
+};
 
-class Li extends React.Component{
+class Tr extends React.Component
+{
     render() {
-        return (
-            <li>
-                <span>li element</span>
-            </li>
-        );
-    }
+       return (
+           <tr>
+               <td>#</td>
+               <td>{this.props.content}</td>
+               <td>{this.props.status}</td>
+           </tr>
+       )
+    };
 }
 
 function App() {
   return (
-    <div className="App">
-      <Ul liElements={<Li />} />
-    </div>
+    <table className="App">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Content</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="action" /></td>
+                <td><input type="text" name="content" /></td>
+                <td>Status</td>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                <Tr content={initialTodo.content} status={initialTodo.status}/>
+            }
+        </tbody>
+    </table>
   );
 }
 
