@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
 
-const initialTodo = {
-    content: 'to implement todo list',
-    status: 1
-};
+const initialTodo = [
+    'to implement todo list'
+];
 
 class Tr extends React.Component
 {
@@ -13,31 +12,36 @@ class Tr extends React.Component
            <tr>
                <td>#</td>
                <td>{this.props.content}</td>
-               <td>{this.props.status}</td>
+               <td><button>x</button></td>
+               <td>#</td>
            </tr>
        )
     };
 }
 
 function App() {
+    const listRows = initialTodo.map((item) =>
+        <Tr key={item} content={item} />
+    );
+
   return (
     <table className="App">
         <thead>
             <tr>
                 <th>Action</th>
                 <th>Content</th>
+                <th>Remove</th>
                 <th>Status</th>
             </tr>
             <tr>
-                <td><input type="checkbox" name="action" /></td>
+                <td>#</td>
                 <td><input type="text" name="content" /></td>
+                <td>#</td>
                 <td>Status</td>
             </tr>
         </thead>
         <tbody>
-            {
-                <Tr content={initialTodo.content} status={initialTodo.status}/>
-            }
+            {listRows}
         </tbody>
     </table>
   );
