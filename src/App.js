@@ -13,6 +13,7 @@ class App extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.removeTodo = this.removeTodo.bind(this);
     }
 
     handleSubmit(event) {
@@ -27,6 +28,12 @@ class App extends React.Component {
 
     handleChange(event) {
         this.setState({value: event.target.value});
+    }
+
+    removeTodo(index) {
+        let list = [...this.state.list];
+        list.splice(index, 1);
+        this.setState({list: list})
     }
 
     render() {
@@ -53,12 +60,16 @@ class App extends React.Component {
                 </thead>
                 <tbody>
                 {
-                    this.state.list.map((item) =>
-                        <tr key={item}>
+                    this.state.list.map((item, index) =>
+                        <tr key={index}>
                             <td>#</td>
                             <td>{item}</td>
                             <td>
-                                <button>x</button>
+                                <button onClick={(e)=>{
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    this.removeTodo(index);
+                                }}>x</button>
                             </td>
                             <td>#</td>
                         </tr>
