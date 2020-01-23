@@ -1,19 +1,27 @@
 import React from 'react';
 import './App.css';
 
-const initialTodo = [
-    'to implement todo list'
+const todos = [
+    {
+        content: 'task 1',
+        checked: 1
+    },
+    {
+        content: 'task 2',
+        checked: 0
+    },
 ];
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {list: initialTodo, value: ''};
+        this.state = {value: ''};
+        this.state = {todos};
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.removeTodo = this.removeTodo.bind(this);
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     }
 
     handleSubmit(event) {
@@ -22,10 +30,14 @@ class App extends React.Component {
             alert('empty value');
             return;
         }
-        let list = this.state.list;
-        list.push(this.state.value);
 
-        this.setState({list});
+        let todos = this.state.todos;
+        todos.push({
+            content: this.state.value,
+            checked: 0
+        });
+
+        this.setState({todos});
         this.setState({value: ''})
     }
 
@@ -34,9 +46,22 @@ class App extends React.Component {
     }
 
     removeTodo(index) {
-        let list = [...this.state.list];
-        list.splice(index, 1);
-        this.setState({list: list})
+        let todos = [...this.state.todos];
+        todos.splice(index, 1);
+        this.setState({todos})
+    }
+
+    handleCheckboxChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const index = target.name;
+
+        let todos = this.state.todos;
+        todos[index].checked = value;
+
+        this.setState({todos});
+        
+        console.log(index);
     }
 
     render() {
@@ -52,7 +77,7 @@ class App extends React.Component {
                     <td>#</td>
                     <td>
                         <form onSubmit={this.handleSubmit}>
-                            <input type="text" onChange={this.handleChange} value={this.state.value} />
+                            <input type="text" onChange={this.handleChange} value={this.state.value}/>
                             <button>add</button>
                         </form>
                     </td>
@@ -61,12 +86,20 @@ class App extends React.Component {
                 </thead>
                 <tbody>
                 {
-                    this.state.list.map((item, index) =>
+                    this.state.todos.map((item, index) =>
                         <tr key={index}>
-                            <td><input type="checkbox" /> </td>
-                            <td>{item}</td>
                             <td>
-                                <button onClick={()=>{this.removeTodo(index);}}>x</button>
+                                <input type="checkbox"
+                                       name={index}
+                                       onClick={this.handleCheckboxChange}
+                                       checked={item.checked}
+                                />
+                            </td>
+                            <td><span style={{textDecoration: item.checked ? 'line-through' : 'none'}}>{item.content}</span></td>
+                            <td>
+                                <button onClick={() => {this.removeTodo(index);}}>
+                                    <span>x</span>
+                                </button>
                             </td>
                         </tr>
                     )
