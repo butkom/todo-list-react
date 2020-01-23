@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import TBodyRows from './TBodyRows.js'
+import NewTodoElement from './NewTodoElement.js'
 
 const todos = [
     {
@@ -13,51 +15,6 @@ const todos = [
         updateInProgress: 0
     },
 ];
-
-class UpdateTodo extends React.Component {
-    render() {
-        return(
-            <div>
-                <input
-                    name={this.props.index}
-                    type="text"
-                    onChange={this.props.handleChangeTodo}
-                    value={this.props.content}
-                />
-            </div>
-        );
-    }
-}
-
-class Content extends React.Component {
-    render() {
-        return(
-            <div
-                onDoubleClick={() => this.props.handleDoubleClick(this.props.index)}
-                style={{textDecoration: this.props.checked ? 'line-through' : 'none'}}
-            >
-                {this.props.content}
-            </div>
-        );
-    }
-}
-
-class NewTodoElement extends React.Component {
-    render() {
-        return(
-            <form
-                onSubmit={this.props.handleSubmit}
-            >
-                <input
-                    type="text"
-                    onChange={this.props.handleChange}
-                    value={this.props.value}
-                />
-                <button>add</button>
-            </form>
-        );
-    }
-}
 
 class App extends React.Component {
     constructor(props) {
@@ -174,31 +131,4 @@ class App extends React.Component {
     }
 }
 
-class TBodyRows extends React.Component {
-    render() {
-        return(
-            <tr>
-                <td>
-                    <input type="checkbox"
-                           name={this.props.index}
-                           onChange={this.props.handleCheckboxChange}
-                           checked={this.props.checked}
-                    />
-                </td>
-                <td>
-                    {
-                        this.props.updateInProgress ?
-                            <UpdateTodo handleChangeTodo={this.props.handleChangeTodo} index={this.props.index} content={this.props.content} /> :
-                            <Content handleDoubleClick={this.props.handleDoubleClick} index={this.props.index} checked={this.props.checked} content={this.props.content} />
-                    }
-                </td>
-                <td>
-                    <button onClick={() => {this.props.removeTodo(this.props.index)}}>
-                        <span>x</span>
-                    </button>
-                </td>
-            </tr>
-        );
-    }
-}
 export default App;
