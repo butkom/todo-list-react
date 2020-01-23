@@ -14,6 +14,51 @@ const todos = [
     },
 ];
 
+class UpdateTodo extends React.Component {
+    render() {
+        return(
+            <div>
+                <input
+                    name={this.props.index}
+                    type="text"
+                    onChange={this.props.handleChangeTodo}
+                    value={this.props.content}
+                />
+            </div>
+        );
+    }
+}
+
+class Content extends React.Component {
+    render() {
+        return(
+            <div
+                onDoubleClick={() => this.props.handleDoubleClick(this.props.index)}
+                style={{textDecoration: this.props.checked ? 'line-through' : 'none'}}
+            >
+                {this.props.content}
+            </div>
+        );
+    }
+}
+
+class NewTodoElement extends React.Component {
+    render() {
+        return(
+            <form
+                onSubmit={this.props.handleSubmit}
+            >
+                <input
+                    type="text"
+                    onChange={this.props.handleChange}
+                    value={this.props.value}
+                />
+                <button>add</button>
+            </form>
+        );
+    }
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -88,12 +133,6 @@ class App extends React.Component {
 
     handleInputBlur(index) {
         console.log(index);
-        // let todos = this.state.todos;
-        // if (todos[index].updateInProgress) {
-        //     todos[index].updateInProgress = 0;
-        //
-        //     this.setState({todos});
-        // }
     }
 
     render() {
@@ -108,10 +147,7 @@ class App extends React.Component {
                 <tr>
                     <td>#</td>
                     <td>
-                        <form onSubmit={this.handleSubmit}>
-                            <input type="text" onChange={this.handleChange} value={this.state.value}/>
-                            <button>add</button>
-                        </form>
+                        <NewTodoElement handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                     </td>
                     <td>#</td>
                 </tr>
@@ -119,38 +155,17 @@ class App extends React.Component {
                 <tbody>
                 {
                     this.state.todos.map((item, index) =>
-                        <tr key={index}>
-                            <td>
-                                <input type="checkbox"
-                                       name={index}
-                                       onChange={this.handleCheckboxChange}
-                                       checked={item.checked}
-                                />
-                            </td>
-                            <td>
-                                <div
-                                    onDoubleClick={() => this.handleDoubleClick(index)}
-                                    style={{textDecoration: item.checked ? 'line-through' : 'none', display: item.updateInProgress ? 'none' : 'block'}}
-                                >
-                                    {item.content}
-                                </div>
-                                <div style={{display: item.updateInProgress ? 'block' : 'none'}}>
-                                    <input
-                                        name={index}
-                                        type="text"
-                                        onChange={this.handleChangeTodo}
-                                        value={this.state.todos[index].content}
-                                    />
-                                </div>
-                            </td>
-                            <td>
-                                <button onClick={() => {
-                                    this.removeTodo(index);
-                                }}>
-                                    <span>x</span>
-                                </button>
-                            </td>
-                        </tr>
+                        <TBodyRows
+                            key={index}
+                            index={index}
+                            handleCheckboxChange={this.handleCheckboxChange}
+                            checked={item.checked}
+                            updateInProgress={item.updateInProgress}
+                            content={item.content}
+                            removeTodo={this.removeTodo}
+                            handleChangeTodo={this.handleChangeTodo}
+                            handleDoubleClick={this.handleDoubleClick}
+                        />
                     )
                 }
                 </tbody>
@@ -159,4 +174,31 @@ class App extends React.Component {
     }
 }
 
+class TBodyRows extends React.Component {
+    render() {
+        return(
+            <tr>
+                <td>
+                    <input type="checkbox"
+                           name={this.props.index}
+                           onChange={this.props.handleCheckboxChange}
+                           checked={this.props.checked}
+                    />
+                </td>
+                <td>
+                    {
+                        this.props.updateInProgress ?
+                            <UpdateTodo handleChangeTodo={this.props.handleChangeTodo} index={this.props.index} content={this.props.content} /> :
+                            <Content handleDoubleClick={this.props.handleDoubleClick} index={this.props.index} checked={this.props.checked} content={this.props.content} />
+                    }
+                </td>
+                <td>
+                    <button onClick={() => {this.props.removeTodo(this.props.index)}}>
+                        <span>x</span>
+                    </button>
+                </td>
+            </tr>
+        );
+    }
+}
 export default App;
