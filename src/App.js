@@ -28,7 +28,7 @@ class App extends React.Component {
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleChangeTodo = this.handleChangeTodo.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
-        this.handleInputBlur = this.handleInputBlur.bind(this);
+        this.handleOnBlur = this.handleOnBlur.bind(this);
     }
 
     handleSubmit(event) {
@@ -88,8 +88,14 @@ class App extends React.Component {
         this.setState({todos});
     }
 
-    handleInputBlur(index) {
-        console.log(index);
+    handleOnBlur(event) {
+        const target = event.target;
+        const index = target.name;
+        const todos = this.state.todos;
+
+        todos[index].updateInProgress = 0;
+
+        this.setState({todos});
     }
 
     render() {
@@ -122,6 +128,7 @@ class App extends React.Component {
                             removeTodo={this.removeTodo}
                             handleChangeTodo={this.handleChangeTodo}
                             handleDoubleClick={this.handleDoubleClick}
+                            handleOnBlur={this.handleOnBlur}
                         />
                     )
                 }

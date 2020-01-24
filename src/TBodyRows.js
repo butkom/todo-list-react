@@ -16,7 +16,7 @@ class TBodyRows extends React.Component {
                 <td>
                     {
                         this.props.updateInProgress ?
-                            <UpdateTodo handleChangeTodo={this.props.handleChangeTodo} index={this.props.index} content={this.props.content} /> :
+                            <UpdateTodo handleOnBlur={this.props.handleOnBlur} handleChangeTodo={this.props.handleChangeTodo} index={this.props.index} content={this.props.content} /> :
                             <Content handleDoubleClick={this.props.handleDoubleClick} index={this.props.index} checked={this.props.checked} content={this.props.content} />
                     }
                 </td>
