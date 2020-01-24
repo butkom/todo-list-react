@@ -211,7 +211,7 @@ body {
   text-align: center
 }
 
-.list-wrapper .completed {
+.list-wrapper .completed span {
   text-decoration: line-through;
   text-decoration-color: #3da5f4
 }
