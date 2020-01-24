@@ -10,16 +10,16 @@ class ToDoElements extends React.Component {
                         this.props.updateInProgress ?
                             <UpdateTodo handleOnBlur={this.props.handleOnBlur} handleChangeTodo={this.props.handleChangeTodo} index={this.props.index} content={this.props.content} /> :
                             <div>
-                            <label className='form-check-label' onDoubleClick={() => this.props.handleDoubleClick(this.props.index)}>
+                            <label className='form-check-label'>
                                 <input className='checkbox'
                                        type='checkbox'
                                        name={this.props.index}
                                        onChange={this.props.handleCheckboxChange}
                                        checked={this.props.checked}
                                 />
-                                {this.props.content}
                                 <i className='input-helper'></i>
                             </label>
+                                <span  onDoubleClick={() => this.props.handleDoubleClick(this.props.index)}>{this.props.content}</span>
                             </div>
                     }
                 </div>

@@ -258,7 +258,7 @@ body {
 
 .form-check .form-check-label {
   min-height: 18px;
-  display: block;
+  display: inline-block;
   margin-left: 1.75rem;
   font-size: 0.875rem;
   line-height: 1.5
@@ -266,6 +266,11 @@ body {
 
 .form-check-label {
   margin-bottom: 0
+}
+
+.form-check-label + span {
+  display: inline-block;
+  width: 100%;
 }
 
 .list-wrapper input[type="checkbox"] {
