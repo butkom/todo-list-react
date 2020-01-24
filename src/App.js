@@ -110,7 +110,7 @@ class App extends React.Component {
                 <tr>
                     <td>#</td>
                     <td>
-                        <NewTodoElement handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+                        <NewTodoElement addTodoValue={this.state.value} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                     </td>
                     <td>#</td>
                 </tr>

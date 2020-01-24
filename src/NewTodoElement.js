@@ -9,7 +9,7 @@ class NewTodoElement extends React.Component {
                 <input
                     type="text"
                     onChange={this.props.handleChange}
-                    value={this.props.value}
+                    value={this.props.addTodoValue}
                 />
                 <button>add</button>
             </form>
