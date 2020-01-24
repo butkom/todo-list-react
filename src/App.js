@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import TBodyRows from './TBodyRows.js'
+import ToDoElements from './ToDoElements.js'
 import NewTodoElement from './NewTodoElement.js'
 
 const todos = [
@@ -39,7 +39,6 @@ class App extends React.Component {
             alert('empty value');
             return;
         }
-
         let todos = this.state.todos;
         todos.push({
             content: this.state.value,
@@ -101,41 +100,42 @@ class App extends React.Component {
     }
 
     render() {
-        return (
-            <table className="App">
-                <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>Content</th>
-                    <th>Remove</th>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td>
-                        <NewTodoElement addTodoValue={this.state.value} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-                    </td>
-                    <td>#</td>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    this.state.todos.map((item, index) =>
-                        <TBodyRows
-                            key={index}
-                            index={index}
-                            handleCheckboxChange={this.handleCheckboxChange}
-                            checked={item.checked}
-                            updateInProgress={item.updateInProgress}
-                            content={item.content}
-                            removeTodo={this.removeTodo}
-                            handleChangeTodo={this.handleChangeTodo}
-                            handleDoubleClick={this.handleDoubleClick}
-                            handleOnBlur={this.handleOnBlur}
-                        />
-                    )
-                }
-                </tbody>
-            </table>
+        return(
+            <div className='page-content page-container' id='page-content'>
+                <div className='padding'>
+                    <div className='row container d-flex justify-content-center'>
+                        <div className='col-lg-12'>
+                            <div className='card px-3'>
+                                <div className='card-body'>
+                                    <h4 className='card-title'>Awesome Todo list</h4>
+                                    <NewTodoElement addTodoValue={this.state.value} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+
+                                    <div className='list-wrapper'>
+                                        <ul className='d-flex flex-column-reverse todo-list'>
+                                            {
+                                                this.state.todos.map((item, index) =>
+                                                    <ToDoElements
+                                                        key={index}
+                                                        index={index}
+                                                        handleCheckboxChange={this.handleCheckboxChange}
+                                                        checked={item.checked}
+                                                        updateInProgress={item.updateInProgress}
+                                                        content={item.content}
+                                                        removeTodo={this.removeTodo}
+                                                        handleChangeTodo={this.handleChangeTodo}
+                                                        handleDoubleClick={this.handleDoubleClick}
+                                                        handleOnBlur={this.handleOnBlur}
+                                                    />
+                                                )
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

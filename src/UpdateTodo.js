@@ -6,10 +6,11 @@ class UpdateTodo extends React.Component {
         return(
             <div>
                 <input
+                    className='edit-todo-element'
                     autoFocus={true}
                     onBlur={this.props.handleOnBlur}
                     name={this.props.index}
-                    type="text"
+                    type='text'
                     onChange={this.props.handleChangeTodo}
                     value={this.props.content}
                 />
