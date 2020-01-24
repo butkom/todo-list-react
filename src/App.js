@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
 import TBodyRows from './TBodyRows.js'
 import NewTodoElement from './NewTodoElement.js'
 
