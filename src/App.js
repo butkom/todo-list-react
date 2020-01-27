@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
 import ToDoElements from './ToDoElements.js'
 import NewTodoElement from './NewTodoElement.js'
 
@@ -24,13 +23,8 @@ class App extends React.Component {
         this.state = {value: ''};
         this.state = {todos};
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.removeTodo = this.removeTodo.bind(this);
-        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-        this.handleChangeTodo = this.handleChangeTodo.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
-        this.handleOnBlur = this.handleOnBlur.bind(this);
     }
 
     handleSubmit(event) {
@@ -108,7 +102,7 @@ class App extends React.Component {
                             <div className='card px-3'>
                                 <div className='card-body'>
                                     <h4 className='card-title'>Awesome Todo list</h4>
-                                    <NewTodoElement addTodoValue={this.state.value} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+                                    <NewTodoElement addTodoValue={this.state.value} handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} />
 
                                     <div className='list-wrapper'>
                                         <ul className='d-flex flex-column-reverse todo-list'>
@@ -117,14 +111,14 @@ class App extends React.Component {
                                                     <ToDoElements
                                                         key={index}
                                                         index={index}
-                                                        handleCheckboxChange={this.handleCheckboxChange}
+                                                        handleCheckboxChange={this.handleCheckboxChange.bind(this)}
                                                         checked={item.checked}
                                                         updateInProgress={item.updateInProgress}
                                                         content={item.content}
                                                         removeTodo={this.removeTodo}
-                                                        handleChangeTodo={this.handleChangeTodo}
+                                                        handleChangeTodo={this.handleChangeTodo.bind(this)}
                                                         handleDoubleClick={this.handleDoubleClick}
-                                                        handleOnBlur={this.handleOnBlur}
+                                                        handleOnBlur={this.handleOnBlur.bind(this)}
                                                     />
                                                 )
                                             }
