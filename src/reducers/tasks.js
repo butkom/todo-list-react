@@ -13,7 +13,7 @@ const initialState = [
 
 export default function createTasks(state = initialState, action) {
     console.log('action from createTasks func. ', action);
-    if (action.type == 'ADD_TASK') {
+    if (action.type === 'ADD_TASK') {
         return [...state, action.payload];
     }
 }
