@@ -26,11 +26,11 @@ class App extends React.Component {
 
         this.taskInput.value = '';
     }
-    removeTodo = item => {
+    removeTodo = (item) => {
         return () => this.props.onDeleteTask(item);
     };
 
-    handleCheckboxChange = item => {
+    handleCheckboxChange = (item) => {
         return () => this.props.onCompleteTask(item);
     };
 
@@ -41,11 +41,11 @@ class App extends React.Component {
         return () => this.props.onChangeItemUpdate(item);
     };
 
-    handleDoubleClick = item => {
+    handleDoubleClick = (item) => {
         return () => this.props.onUpdateInProgress(item);
     };
 
-    handleOnBlur = item => {
+    handleOnBlur = (item) => {
         return () => this.props.onBlurUpdate(item);
     };
 
