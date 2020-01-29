@@ -3,18 +3,24 @@ import UpdateTodo from  './UpdateTodo.js';
 
 class ToDoElements extends React.Component {
     render() {
-        console.log(this.props.item.checked);
-
         return(
             <li className={this.props.item.checked ? 'completed' : ''}>
                 <div className='form-check'>
                     {
                         this.props.updateInProgress ?
-                            <UpdateTodo
-                                handleOnBlur={this.props.handleOnBlur}
-                                handleChangeTodo={this.props.handleChangeTodo}
-                                index={this.props.index}
-                                content={this.props.item.content} /> :
+                            <div>
+                                <input
+                                    className='edit-todo-element'
+                                    autoFocus={true}
+                                    onBlur={this.props.handleOnBlur(this.props.item)}
+                                    name={this.props.index}
+                                    type='text'
+                                    ref={(input) => {this.taskInput = input}}
+                                    onChange={this.props.handleChangeTodo(this.props.item, this.taskInput)}
+                                    value={this.props.item.content}
+                                />
+                            </div>
+                                :
                             <div>
                             <label className='form-check-label'>
                                 <input className='checkbox'
@@ -25,7 +31,7 @@ class ToDoElements extends React.Component {
                                 />
                                 <i className='input-helper'></i>
                             </label>
-                                <span  onDoubleClick={() => this.props.handleDoubleClick(this.props.index)}>{this.props.item.content}</span>
+                                <span  onDoubleClick={this.props.handleDoubleClick(this.props.item)}>{this.props.item.content}</span>
                             </div>
                     }
                 </div>

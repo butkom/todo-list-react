@@ -13,6 +13,7 @@ class App extends React.Component {
         this.removeTodo = this.removeTodo.bind(this);
         this.handleDoubleClick = this.handleDoubleClick.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleOnBlur = this.handleOnBlur.bind(this);
     }
 
     handleSubmit() {
@@ -26,7 +27,6 @@ class App extends React.Component {
         this.taskInput.value = '';
     }
     removeTodo = item => {
-        console.log(item);
         return () => this.props.onDeleteTask(item);
     };
 
@@ -34,34 +34,20 @@ class App extends React.Component {
         return () => this.props.onCompleteTask(item);
     };
 
-    handleChangeTodo(event) {
-        const target = event.target;
-        const index = target.name;
-        const value = target.value;
+    handleChangeTodo = (item, input) => {
+        if (input) {
+            item.content = input.value;
+        }
+        return () => this.props.onChangeItemUpdate(item);
+    };
 
-        let todos = this.state.todos;
-        todos[index].content = value;
+    handleDoubleClick = item => {
+        return () => this.props.onUpdateInProgress(item);
+    };
 
-        this.setState({todos});
-    }
-
-    handleDoubleClick(index) {
-        let todos = this.state.todos;
-
-        todos[index].updateInProgress = 1;
-
-        this.setState({todos});
-    }
-
-    handleOnBlur(event) {
-        const target = event.target;
-        const index = target.name;
-        const todos = this.state.todos;
-
-        todos[index].updateInProgress = 0;
-
-        this.setState({todos});
-    }
+    handleOnBlur = item => {
+        return () => this.props.onBlurUpdate(item);
+    };
 
     render() {
         return(
@@ -72,8 +58,6 @@ class App extends React.Component {
                             <div className='card px-3'>
                                 <div className='card-body'>
                                     <h4 className='card-title'>Awesome Todo list</h4>
-                                    {/*<NewTodoElement addTodoValue={this.state.value} handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} />*/}
-
                                     <div className="add-items d-flex">
                                         <input
                                                type="text"
@@ -98,9 +82,9 @@ class App extends React.Component {
                                                         onUpdateTask={this.props.onUpdateTask}
                                                         updateInProgress={item.updateInProgress}
                                                         removeTodo={this.removeTodo}
-                                                        // handleChangeTodo={this.handleChangeTodo.bind(this)}
                                                         handleDoubleClick={this.handleDoubleClick}
-                                                        handleOnBlur={this.handleOnBlur.bind(this)}
+                                                        handleOnBlur={this.handleOnBlur}
+                                                        handleChangeTodo={this.handleChangeTodo}
                                                         handleCheckboxChange={this.handleCheckboxChange}
                                                     />
                                                 )
@@ -150,6 +134,27 @@ export default connect(
         onDeleteTask: (task) => {
             dispatch({
                 type: 'DELETE_TASK',
+                payload: task
+            })
+        },
+        onUpdateInProgress: (task) => {
+            task.updateInProgress = true;
+            dispatch({
+                type: 'UPDATE_TASK',
+                payload: task
+            })
+        },
+        onBlurUpdate: (task) => {
+            task.updateInProgress = false;
+            dispatch({
+                type: 'UPDATE_TASK',
+                payload: task
+            })
+        },
+        onChangeItemUpdate: (task) => {
+            task.content = false;
+            dispatch({
+                type: 'UPDATE_TASK',
                 payload: task
             })
         }
