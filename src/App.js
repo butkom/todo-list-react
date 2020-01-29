@@ -111,7 +111,7 @@ export default connect(
             };
             dispatch({
                 type: 'ADD_TASK',
-                payload: content
+                payload: payload
             })
         },
         onUpdateTask: (task) => {
