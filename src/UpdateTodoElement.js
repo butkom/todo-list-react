@@ -7,7 +7,7 @@ class UpdateTodoElement extends React.Component {
                 <input
                     className='edit-todo-element'
                     autoFocus={true}
-                    onBlur={this.props.handleOnBlur(this.props.item)}
+                    onBlur={this.props.handleUpdateItem(this.props.item)}
                     type='text'
                     ref={(input) => {this.taskInput = input}}
                     onChange={this.props.handleChangeTodo(this.props.item, this.taskInput)}

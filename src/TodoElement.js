@@ -12,7 +12,7 @@ class TodoElement extends React.Component {
                     />
                     <i className='input-helper'></i>
                 </label>
-                <span  onDoubleClick={this.props.handleDoubleClick(this.props.item)}>{this.props.item.content}</span>
+                <span  onDoubleClick={this.props.handleUpdateItem(this.props.item)}>{this.props.item.content}</span>
             </div>
         );
     }

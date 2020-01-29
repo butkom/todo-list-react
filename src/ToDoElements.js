@@ -10,8 +10,8 @@ class ToDoElements extends React.Component {
                 <div className='form-check'>
                     {
                         this.props.updateInProgress ?
-                            <UpdateTodoElement item={this.props.item} handleChangeTodo={this.props.handleChangeTodo} handleOnBlur={this.props.handleOnBlur}/> :
-                            <TodoElement item={this.props.item} handleCheckboxChange={this.props.handleCheckboxChange} handleDoubleClick={this.props.handleDoubleClick} />
+                            <UpdateTodoElement item={this.props.item} handleChangeTodo={this.props.handleChangeTodo} handleUpdateItem={this.props.handleUpdateItem}/> :
+                            <TodoElement item={this.props.item} handleCheckboxChange={this.props.handleCheckboxChange} handleUpdateItem={this.props.handleUpdateItem} />
                     }
                 </div>
                 <i className='remove mdi mdi-close-circle-outline' onClick={this.props.removeTodo(this.props.item)}></i>

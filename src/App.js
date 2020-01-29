@@ -11,9 +11,8 @@ class App extends React.Component {
         this.state = {value: ''};
 
         this.removeTodo = this.removeTodo.bind(this);
-        this.handleDoubleClick = this.handleDoubleClick.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-        this.handleOnBlur = this.handleOnBlur.bind(this);
+        this.handleUpdateItem = this.handleUpdateItem.bind(this);
     }
 
     handleSubmit() {
@@ -41,12 +40,8 @@ class App extends React.Component {
         return () => this.props.onChangeItemUpdate(item);
     };
 
-    handleDoubleClick = (item) => {
-        return () => this.props.onUpdateInProgress(item);
-    };
-
-    handleOnBlur = (item) => {
-        return () => this.props.onBlurUpdate(item);
+    handleUpdateItem = (item) => {
+        return () => this.props.onUpdateItem(item);
     };
 
     render() {
@@ -82,8 +77,9 @@ class App extends React.Component {
                                                         onUpdateTask={this.props.onUpdateTask}
                                                         updateInProgress={item.updateInProgress}
                                                         removeTodo={this.removeTodo}
-                                                        handleDoubleClick={this.handleDoubleClick}
-                                                        handleOnBlur={this.handleOnBlur}
+                                                        handleDoubleClick={this.handleUpdateItem}
+                                                        handleOnBlur={this.handleUpdateItem}
+                                                        handleUpdateItem={this.handleUpdateItem}
                                                         handleChangeTodo={this.handleChangeTodo}
                                                         handleCheckboxChange={this.handleCheckboxChange}
                                                     />
@@ -115,7 +111,7 @@ export default connect(
             };
             dispatch({
                 type: 'ADD_TASK',
-                payload: payload
+                payload: content
             })
         },
         onUpdateTask: (task) => {
@@ -137,15 +133,8 @@ export default connect(
                 payload: task
             })
         },
-        onUpdateInProgress: (task) => {
-            task.updateInProgress = true;
-            dispatch({
-                type: 'UPDATE_TASK',
-                payload: task
-            })
-        },
-        onBlurUpdate: (task) => {
-            task.updateInProgress = false;
+        onUpdateItem: (task) => {
+            task.updateInProgress = !task.updateInProgress;
             dispatch({
                 type: 'UPDATE_TASK',
                 payload: task
