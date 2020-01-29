@@ -152,7 +152,6 @@ export default connect(
             })
         },
         onChangeItemUpdate: (task) => {
-            task.content = false;
             dispatch({
                 type: 'UPDATE_TASK',
                 payload: task
