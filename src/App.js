@@ -74,8 +74,6 @@ class App extends React.Component {
                                                     <ToDoElements
                                                         key={item.id}
                                                         item={item}
-                                                        onUpdateTask={this.props.onUpdateTask}
-                                                        updateInProgress={item.updateInProgress}
                                                         removeTodo={this.removeTodo}
                                                         handleDoubleClick={this.handleUpdateItem}
                                                         handleOnBlur={this.handleUpdateItem}
@@ -112,12 +110,6 @@ export default connect(
             dispatch({
                 type: 'ADD_TASK',
                 payload: payload
-            })
-        },
-        onUpdateTask: (task) => {
-            dispatch({
-                type: 'UPDATE_TASK',
-                payload: task
             })
         },
         onCompleteTask: (task) => {
